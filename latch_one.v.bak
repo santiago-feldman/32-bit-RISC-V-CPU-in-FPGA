@@ -1,0 +1,69 @@
+//////////////////////////////////////STAGE 1///////////////////////////////////////////////////////
+
+module latch_one(
+    input wire clk,
+    input wire st1_en,              // Stage 1 enable (from pipeline controller)
+    input wire st1_rst,             // Reset stage 1 (from pipeline controller)
+    input wire st1_pause,           // Pause stage 1 (from pipeline controller)
+
+    input wire [4:0] rs1_addr,      // rs1 address (from decode)
+    input wire [4:0] rs2_addr,      // rs2 address (from decode)
+    input wire [4:0] rd_addr,       // rd address (from decode)
+    input wire [2:0] f_three,        // funct3 from RISC-V instruction set (from decode)
+    input wire [31:0] imm,          // 32-bit immediate value (from imm_builder)
+    input wire [31:0] pc,           // 32-bit program counter (from fetch)
+    
+    // Ver qué señales de control del opcode_decode necesito inputear acá. Si veo que una etapa
+    // posterior en el pipeline usa alguna, la tengo que mandar primero por acá!!!!!!!!!!!!!!!
+    input wire imm_en,              // From opcode_decode
+    input wire rs1_en,              // From opcode_decode
+    input wire jump_en,             // From opcode_decode
+    input wire [2:0] sum_imm_flag,  // From opcode_decode  
+
+    input wire [4:0] ALU_ctrl,      // ALU control signals (from opcode_decode)
+
+    output reg [4:0] rs1_addr_one,      
+    output reg [4:0] rs2_addr_one,    
+    output reg [4:0] rd_addr_one,     
+    output reg [2:0] funct3_one,       
+    output reg [31:0] imm_one,         
+    output reg [31:0] pc_one,
+    output reg [4:0] ALU_ctrl_one,
+
+    output reg en_imm_one,
+    output reg en_rs1_one,
+    output reg en_jump_one,
+    output reg [2:0] sum_imm_flag_one
+
+);
+
+    always @(posedge clk) begin
+        if (st1_rst) begin
+            rs1_addr_one     <= 5'b0;
+            rs2_addr_one     <= 5'b0;
+            rd_addr_one      <= 5'b0;
+            funct3_one       <= 3'b0;
+            imm_one          <= 32'b0;
+            pc_one           <= 32'b0;
+            ALU_ctrl_one     <= 5'b0;
+            en_imm_one       <= 1'b0;
+            en_rs1_one       <= 1'b0;
+            en_jump_one      <= 1'b0;
+            sum_imm_flag_one <= 3'b0;
+        end
+        else if (st1_en && !st1_pause) begin    // If pause_st1 is active (and not rst_st1), the outputs maintain their values
+            rs1_addr_one     <= rs1_addr;
+            rs2_addr_one     <= rs2_addr;
+            rd_addr_one      <= rd_addr;
+            funct3_one       <= f_three;
+            imm_one          <= imm;
+            pc_one           <= pc;
+            ALU_ctrl_one     <= ALU_ctrl;
+            en_imm_one       <= imm_en;
+            en_rs1_one       <= rs1_en;
+            en_jump_one      <= jump_en;
+            sum_imm_flag_one <= sum_imm_flag; 
+        end
+    end
+
+endmodule

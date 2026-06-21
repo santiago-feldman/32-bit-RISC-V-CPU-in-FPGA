@@ -1,0 +1,31 @@
+WIDTH=32;
+DEPTH=65536;
+
+ADDRESS_RADIX=HEX;
+DATA_RADIX=HEX;
+
+CONTENT BEGIN
+    0000 : 000F8F93;
+    0004 : 00100093; --reg1 = 1
+    0008 : 00110113; --reg2=1
+    000C : 001101B3;--reg[3]=reg[1]+reg[2] loop start
+    0010 : 00010093;--reg[1]=reg[2]+0
+    0014 : 00018113;--reg[2]=reg[3]+0 loop end
+    0018 : 001101B3;--reg[3]=reg[1]+reg[2] loop start
+    001C : 00010093;--reg[1]=reg[2]+0
+    0020 : 00018113;--reg[2]=reg[3]+0 loop end
+    0024 : 001101B3;--reg[3]=reg[1]+reg[2] loop start
+    0028 : 00010093;--reg[1]=reg[2]+0
+    002C : 00018113;--reg[2]=reg[3]+0 loop end
+    0030 : 001101B3;--reg[3]=reg[1]+reg[2] loop start
+    0034 : 00010093;--reg[1]=reg[2]+0
+    0038 : 00018113;--reg[2]=reg[3]+0 loop end
+    003C : 001101B3;--reg[3]=reg[1]+reg[2] loop start
+    0040 : 00010093;--reg[1]=reg[2]+0
+    0044 : 00018113;--reg[2]=reg[3]+0 loop end
+    0048 : 03C00E6F;--goto 003C	
+
+    -- Fill rest with NOPs 
+    [004C..FFFF] : 000F8F93;
+END;
+

@@ -1,0 +1,62 @@
+//////////////////////////////////////ADDRESS BUILDER///////////////////////////////////////////////
+
+`define BEQINSTR     3'b000                 // Possible funct3 values for B-type instructions
+`define BNEINSTR     3'b001
+`define BLTINSTR     3'b100
+`define BGEINSTR     3'b101 
+`define BLTUINSTR    3'b110 
+`define BGEUINSTR    3'b111 
+
+module addr_builder(
+    input wire [31:0] rs1_val,                 // rs1 value (from reg_bank)
+    input wire [31:0] rs2_val,                 // rs2 value (from reg_bank)
+    input wire [31:0] imm,          	        // 32-bit immediate value (from stage1)
+    input wire [31:0] pc,        	           // 32-bit program counter (from stage1)
+    input wire [2:0] f_three, 	              // funct3 (from stage1)
+
+    input wire en_addr_builder,     	        // Enable addr_builder (from pipeline controller)
+    
+    // Señales de control que se vayan a necesitar
+    input wire jump_en,                     // J-type instruction
+    input wire branch_en,                   // B-type instruction
+    input wire rs1_en,                      // Instruction uses rs1
+
+    output wire [31:0] new_pc,
+    output reg jump,
+
+    output wire BEQ,                     
+    output wire BNE,
+    output wire BLT,
+    output wire BGE,
+    output wire BLTU,
+    output wire BGEU
+);
+
+    assign new_pc = (jump_en && rs1_en) ? rs1_val+imm : pc+imm;  // PC'= rs1+imm for JALR instruction; PC'=PC+imm for JAL and BRANCH instructions  
+    
+    assign BEQ = (rs1_val == rs2_val); 
+    assign BNE = (rs1_val != rs2_val);
+    assign BLT = ($signed(rs1_val) < $signed(rs2_val));
+    assign BGE = ($signed(rs1_val) >= $signed(rs2_val));
+    assign BLTU = (rs1_val < rs2_val);
+    assign BGEU = (rs1_val >= rs2_val);
+
+    always @(*)
+        begin
+            if(jump_en && en_addr_builder) jump = 1;
+            else if (branch_en && en_addr_builder) begin
+                case(funct3)
+                    `BEQINSTR: jump = BEQ;
+                    `BNEINSTR: jump = BNE;
+                    `BLTINSTR: jump = BLT;
+                    `BGEINSTR: jump = BGE;
+                    `BLTUINSTR: jump = BLTU;
+                    `BGEUINSTR: jump = BGEU;
+                    default: jump = 0;
+                endcase
+            end
+            else jump = 0;
+        
+        end
+
+endmodule

@@ -1,0 +1,19 @@
+////////////////////////////////DECODE//////////////////////////////////////////////////////////////
+
+module decode(
+    input wire [31:0] instr,  		// Instruction from the fetch unit
+    
+    output wire [4:0] rs1_addr,     // rs1 address
+    output wire [4:0] rs2_addr,     // rs2 address
+    output wire [4:0] rd_addr,      // rd address
+    output wire [2:0] funct3,       // funct3 from RISC-V instruction set 
+    output wire funct7              // funct7 from RISC-V instruction set
+);
+
+	assign rs1_addr = instr[19:15];
+	assign rs2_addr = instr[24:20];
+	assign rd_addr  = instr[11:7];
+    assign funct3 = instr[14:12];
+	assign funct7   = instr[30];     // Only the 6th bit from funct7 changes for R-type instructions
+
+endmodule

@@ -1,0 +1,103 @@
+`define BYTE 3'b100                 // Store/load 1 Byte
+`define HALF 3'b010                 // Store/load 2 Bytes (half a word)
+`define WORD 3'b001                 // Sotre/load 4 Bytes (1 word)
+
+module mem_ctrl(
+
+    input wire clk,
+    input wire rst,
+
+    input wire [31:0] imm,              // From stage 1
+    input wire [31:0] rs1_val,          // From reg_bank
+    input wire [31:0] rs2_val,          // From reg_bank
+    input wire [31:0] q_b,              // Data from memory
+
+    // Flags necesarias de STAGE 1
+    input wire [2:0] en_mem_access,
+    input wire en_mem_read,             //Considerar cambiarle el nombre a en_load
+    input wire en_mem_store,            //Considerar cambiarle el nombre a en_store
+    input wire en_unsigned,
+
+    output wire [31:0] rs1_out,         // rs1 (to stage 2)
+    output reg [31:0] data_b,          // Data to be stored in memory (to memory B)
+    output reg [31:0] addr,             // Memory address to store data (to memory B)
+    output reg [3:0] byteena_b,        // Store/load 1 Byte, 2 Bytes or 4 Bytes (to memory B)
+    output reg wren_b,                 // Store enable (to memory B)
+    output reg mem_busy                // To pipeline control
+);
+
+// FSM states
+parameter  IDLE  = 0,
+           LOAD  = 1,
+           STORE = 2,
+           SKIP  = 3;
+
+reg [31:0] data = 0;       // Data from memory
+reg read = 0;              // Load flag
+reg [4:0] state = IDLE;    // Current state
+
+assign rs1_out = read ? data : rs1_val;  
+
+always @(*) begin
+    case (en_mem_access)  
+        `BYTE: byteena_b = 4'b0001;   
+        `HALF: byteena_b = 4'b0011;  
+        `WORD: byteena_b = 4'b1111;   
+        default: byteena_b = 4'b0000; 
+    endcase
+end
+
+// FSM
+always @(posedge clk or negedge rst) begin
+    if (!rst) begin
+        state <= IDLE;
+        mem_busy <= 0;
+        wren_b <= 0;
+        read <= 0;
+    end else begin
+        case (state)
+            IDLE: begin
+                addr <= rs1_val[15:0] + imm[15:0];
+                wren_b <= 0;
+                mem_busy <= 0;
+                read <= 0;
+                
+                if (en_mem_read) begin            // LOAD
+                    state <= LOAD;
+                    mem_busy <= 1;
+                end else if (en_mem_store) begin  // STORE
+                    data_b <= rs2_val;
+                    state <= STORE;
+                    mem_busy <= 1;
+                end
+            end
+            
+            LOAD: begin
+                case (en_mem_access)
+                    `BYTE: data <= (en_unsigned) ? {24'b0, q_b[7:0]} :  // LBU
+                                        {{24{q_b[7]}}, q_b[7:0]};       // LB
+                    `HALF: data <= (en_unsigned) ? {16'b0, q_b[15:0]} : // LHU
+                                        {{16{q_b[15]}}, q_b[15:0]};     // LH
+                    `WORD: data <= q_b;                                 // LW
+                endcase
+                state <= SKIP;
+                read <= 1;
+            end
+            
+            STORE: begin
+                wren_b <= 1;
+                state <= SKIP;
+            end
+            
+            SKIP: begin
+                wren_b <= 0;
+                mem_busy <= 0;
+                read <= 0;
+                state <= IDLE;
+            end
+        endcase
+    end
+end
+
+
+endmodule

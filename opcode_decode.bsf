@@ -1,0 +1,121 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 2025  Altera Corporation. All rights reserved.
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and any partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, the Altera Quartus Prime License Agreement,
+the Altera IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Altera and sold by Altera or its authorized distributors.  Please
+refer to the Altera Software License Subscription Agreements 
+on the Quartus Prime software download page.
+*/
+(header "symbol" (version "1.1"))
+(symbol
+	(rect 16 16 248 256)
+	(text "opcode_decode" (rect 5 0 67 12)(font "Arial" ))
+	(text "inst" (rect 8 224 20 236)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "instr[31..0]" (rect 0 0 40 12)(font "Arial" ))
+		(text "instr[31..0]" (rect 21 27 61 39)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32)(line_width 3))
+	)
+	(port
+		(pt 232 32)
+		(output)
+		(text "imm_en" (rect 0 0 33 12)(font "Arial" ))
+		(text "imm_en" (rect 178 27 211 39)(font "Arial" ))
+		(line (pt 232 32)(pt 216 32)(line_width 1))
+	)
+	(port
+		(pt 232 48)
+		(output)
+		(text "rs1_en" (rect 0 0 27 12)(font "Arial" ))
+		(text "rs1_en" (rect 184 43 211 55)(font "Arial" ))
+		(line (pt 232 48)(pt 216 48)(line_width 1))
+	)
+	(port
+		(pt 232 64)
+		(output)
+		(text "rs2_en" (rect 0 0 28 12)(font "Arial" ))
+		(text "rs2_en" (rect 183 59 211 71)(font "Arial" ))
+		(line (pt 232 64)(pt 216 64)(line_width 1))
+	)
+	(port
+		(pt 232 80)
+		(output)
+		(text "rd_en" (rect 0 0 23 12)(font "Arial" ))
+		(text "rd_en" (rect 188 75 211 87)(font "Arial" ))
+		(line (pt 232 80)(pt 216 80)(line_width 1))
+	)
+	(port
+		(pt 232 96)
+		(output)
+		(text "branch_en" (rect 0 0 42 12)(font "Arial" ))
+		(text "branch_en" (rect 169 91 211 103)(font "Arial" ))
+		(line (pt 232 96)(pt 216 96)(line_width 1))
+	)
+	(port
+		(pt 232 112)
+		(output)
+		(text "jump_en" (rect 0 0 34 12)(font "Arial" ))
+		(text "jump_en" (rect 177 107 211 119)(font "Arial" ))
+		(line (pt 232 112)(pt 216 112)(line_width 1))
+	)
+	(port
+		(pt 232 128)
+		(output)
+		(text "unsigned_load" (rect 0 0 55 12)(font "Arial" ))
+		(text "unsigned_load" (rect 156 123 211 135)(font "Arial" ))
+		(line (pt 232 128)(pt 216 128)(line_width 1))
+	)
+	(port
+		(pt 232 144)
+		(output)
+		(text "en_load" (rect 0 0 30 12)(font "Arial" ))
+		(text "en_load" (rect 181 139 211 151)(font "Arial" ))
+		(line (pt 232 144)(pt 216 144)(line_width 1))
+	)
+	(port
+		(pt 232 160)
+		(output)
+		(text "en_store" (rect 0 0 35 12)(font "Arial" ))
+		(text "en_store" (rect 176 155 211 167)(font "Arial" ))
+		(line (pt 232 160)(pt 216 160)(line_width 1))
+	)
+	(port
+		(pt 232 176)
+		(output)
+		(text "sum_imm_flag[2..0]" (rect 0 0 81 12)(font "Arial" ))
+		(text "sum_imm_flag[2..0]" (rect 130 171 211 183)(font "Arial" ))
+		(line (pt 232 176)(pt 216 176)(line_width 3))
+	)
+	(port
+		(pt 232 192)
+		(output)
+		(text "en_mem_access[2..0]" (rect 0 0 90 12)(font "Arial" ))
+		(text "en_mem_access[2..0]" (rect 121 187 211 199)(font "Arial" ))
+		(line (pt 232 192)(pt 216 192)(line_width 3))
+	)
+	(port
+		(pt 232 208)
+		(output)
+		(text "ALU_ctrl[4..0]" (rect 0 0 60 12)(font "Arial" ))
+		(text "ALU_ctrl[4..0]" (rect 151 203 211 215)(font "Arial" ))
+		(line (pt 232 208)(pt 216 208)(line_width 3))
+	)
+	(drawing
+		(rectangle (rect 16 16 216 224)(line_width 1))
+	)
+)

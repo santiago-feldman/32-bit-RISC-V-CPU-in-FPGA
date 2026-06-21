@@ -1,0 +1,30 @@
+module fetch(
+    input wire clk,
+    input wire stop,
+    input wire rst,
+
+    input wire [31:0] q_a,
+    input wire instr_ready,
+    input wire [31:0] new_pc,
+    input wire jump,
+    
+    output reg [15:0] fetch_addr = 16'b1111111111111111,
+    output wire [31:0] pc,
+    output wire [31:0] instr,
+);
+
+always @(posedge clk, negedge rst) begin
+
+	if (!rst) begin
+		fetch_addr <= 16'b1111111111111111;
+	end
+	else if(instr_ready) begin
+        fetch_addr <= (!jump)? (fetch_addr + ((stop) ? 0 : 4)) : new_pc[15:0];
+    end
+
+end
+
+assign pc = {16'b0, fetch_addr};
+assign instr = q_a;
+
+endmodule
