@@ -1,0 +1,7 @@
+
+State Machine - |TP|mem_ctrl:inst1|state
+Name state.SKIP state.STORE state.LOAD state.IDLE 
+state.IDLE 0 0 0 0 
+state.LOAD 0 0 1 1 
+state.STORE 0 1 0 1 
+state.SKIP 1 0 0 1 
