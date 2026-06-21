@@ -1,0 +1,20 @@
+Fitter Status : Successful - Sun Jun 29 09:58:02 2025
+Quartus Prime Version : 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
+Revision Name : TP
+Top-level Entity Name : TP
+Family : Cyclone V
+Device : 5CGXFC7C7F23C8
+Timing Models : Final
+Logic utilization (in ALMs) : 654 / 56,480 ( 1 % )
+Total registers : 459
+Total pins : 9 / 268 ( 3 % )
+Total virtual pins : 0
+Total block memory bits : 1,968,128 / 7,024,640 ( 28 % )
+Total RAM Blocks : 242 / 686 ( 35 % )
+Total DSP Blocks : 0 / 156 ( 0 % )
+Total HSSI RX PCSs : 0 / 6 ( 0 % )
+Total HSSI PMA RX Deserializers : 0 / 6 ( 0 % )
+Total HSSI TX PCSs : 0 / 6 ( 0 % )
+Total HSSI PMA TX Serializers : 0 / 6 ( 0 % )
+Total PLLs : 0 / 13 ( 0 % )
+Total DLLs : 0 / 4 ( 0 % )
