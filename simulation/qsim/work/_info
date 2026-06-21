@@ -1,0 +1,59 @@
+m255
+K4
+z2
+!s11f vlog 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dC:/Users/santi/OneDrive/Documentos/ITBA Electronica/A5C2/Electronica V/TrabajoPracticoQuartus/simulation/qsim
+vTP
+Z0 !s110 1751052571
+!i10b 1
+!s100 QhmmaTAEO=lKD6Pk_@BoC2
+Z1 !s11b Dg1SIo80bB@j0V0VzS_@n1
+ISo@WecTIjd>QFoP8cAgc92
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+Z3 d/home/mateo/Documents/ITBA/e5/TrabajoPracticoQuartus_original_A/TrabajoPracticoQuartus_original/TrabajoPracticoQuartus/simulation/qsim
+w1751052569
+8TP.vo
+FTP.vo
+!i122 182
+L0 32 54899
+Z4 OV;L;2020.1;71
+r1
+!s85 0
+31
+!s108 1751052570.000000
+!s107 TP.vo|
+!s90 -work|work|TP.vo|
+!i113 1
+Z5 o-work work
+Z6 tCvgOpt 0
+n@t@p
+vTP_vlg_vec_tst
+R0
+!i10b 1
+!s100 f53g;G>:0[E=L;IjdIKXn0
+R1
+IK8jU^JHBZ5l8H:EN_Y]_n3
+R2
+R3
+w1751052568
+8Waveform.vwf.vt
+FWaveform.vwf.vt
+!i122 183
+L0 30 26
+R4
+r1
+!s85 0
+31
+!s108 1751052571.000000
+!s107 Waveform.vwf.vt|
+!s90 -work|work|Waveform.vwf.vt|
+!i113 1
+R5
+R6
+n@t@p_vlg_vec_tst
